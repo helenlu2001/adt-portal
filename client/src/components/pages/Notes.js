@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Youtube from "../modules/Youtube";
 import Comment from "../modules/Comment";
 import "../../utilities.css";
 import "./Notes.css";
 import Input from "../modules/Input";
-//TODO: REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
+import { get, post } from "../../utilities";
 
 class Notes extends Component {
   constructor(props) {
@@ -15,6 +13,7 @@ class Notes extends Component {
     this.state = {
       diff: 0,
       comments: [],
+      dance:"god's menu",
     };
 
     this.submitComment = this.submitComment.bind(this);
@@ -22,17 +21,33 @@ class Notes extends Component {
   }
 
   componentDidMount() {
-
+    get("/api/comment", {video: 'TQTlCHxyuu8'}).then((res) => {
+      let comments = res.map((c) => {
+        return {
+          comment: c.comment,
+          refTime: c.time
+        };
+      })
+      comments.sort((c1, c2) => (c1['refTime'] > c2['refTime']) ? 1 : -1);
+      this.setState({comments: comments});
+    });
   }
 
   submitComment(comment) {
+    let time = window['player-dancer'].getCurrentTime();
     let comments = this.state.comments;
     comments.push({
       comment: comment,
-      refTime: window['player-dancer'].getCurrentTime()
+      refTime: time 
     });
     comments.sort((c1, c2) => (c1['refTime'] > c2['refTime']) ? 1 : -1);
     this.setState({comments: comments});
+    post("/api/comment", {
+      author: this.props.userId, 
+      video: 'TQTlCHxyuu8', 
+      comment:comment, 
+      time: time })
+      .then(comment => console.log(comment));
   }
 
   synch() {

@@ -18,7 +18,12 @@ class App extends Component {
     super(props);
     this.state = {
       userId: undefined,
+      kerb: 'helen_lu'
     };
+  }
+
+  componentDidMount() {
+    get("/api/userID", {kerb: this.state.kerb}).then((id) => this.setState({userId: id}));
   }
 
 
@@ -29,6 +34,7 @@ class App extends Component {
         <Router>
           <Notes
             path="/"
+            userId={this.state.userId}
           />
           <NotFound default />
         </Router>

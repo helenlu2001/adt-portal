@@ -11,6 +11,9 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Dance = require("./models/dance");
+const Comment = require("./models/comment");
+const Video = require("./models/video");
 
 // import authentication library
 const auth = require("./auth");
@@ -38,9 +41,30 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
-// |------------------------------|
-// | write your API methods below!|
-// |------------------------------|
+router.get("/userID", (req, res) => {
+  User.findOne({kerb: req.query.kerb}).then((user) => {
+    res.send(user._id);
+  });
+})
+
+router.get("/comment", (req, res) => {
+  Comment.find({video: req.query.video})
+    .then( (comments) => {
+      res.send(comments);
+    });
+})
+
+router.post("/comment", (req, res) => {
+  console.log(req.body.author);
+  const newComment = new Comment({
+    author: req.body.author,
+    video: req.body.video,
+    comment: req.body.comment,
+    time: req.body.time
+  });
+  newComment.save().then((comment) => console.log(comment));
+})
+
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
