@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     border-bottom: 2px var(--med-grey) solid;
+    background: var(--med-grey);
 }
 
 .Nav-logo {

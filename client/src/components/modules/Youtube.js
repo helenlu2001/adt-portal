@@ -29,7 +29,7 @@ class Youtube extends React.Component {
   loadVideo() {
     window['player-' + this.props.type] = new window.YT.Player('player-' + this.props.type, {
       width: '500',
-      videoId: 'nkeh7Bx3GzY',
+      videoId: this.props.videoId,
       events: {
         onReady: this.onPlayerReady,
       },

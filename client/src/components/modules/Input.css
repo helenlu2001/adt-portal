@@ -2,9 +2,9 @@
     display: flex;
     width: 900px;
     height: 64px;
-    margin: 0 auto;
     text-align: center;
     overflow: visible;
+    margin: 32px;
 }
 
 textarea {

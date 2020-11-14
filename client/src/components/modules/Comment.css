@@ -1,0 +1,27 @@
+.Comments-container + .Comments-container {
+    margin-top: 16px;
+}
+
+.Comments-container {
+    display: flex;
+    padding: 4px;
+}
+
+.Comments-time {
+    padding: 4px;
+    padding-right: 12px;
+    min-width: 100px;
+    border-right: solid var(--med-red) 3px;
+    text-align: center;
+    font-size: 24px;
+
+}
+
+.Comments-comment {
+    margin-left: 12px;
+    padding: 4px;
+    min-width: 500px;
+    font-size: 20px;
+
+    word-wrap: break-word;
+}
