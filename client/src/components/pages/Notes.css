@@ -1,0 +1,16 @@
+/* Fill me in :) */
+body {
+    width: 100%;
+    background-color: var(--grey);
+}
+
+.Notes-videoContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 48px;
+}
+
+.Notes-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}

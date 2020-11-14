@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Goldman&display=swap');
+
+.Nav-container {
+    margin-bottom: 32px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px var(--med-grey) solid;
+}
+
+.Nav-logo {
+    height: 45px;
+    width: 125px;
+    background-image: url('http://hihihihello.herokuapp.com/img/red-logo.1a2d0709.png');
+    background-size: cover;
+}
+
+.Nav-title {
+    font-size: 32px;
+    font-family: 'goldman';
+    margin-left: 16px;
+    color: #be0000;
+}
+
