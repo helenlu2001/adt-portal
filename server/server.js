@@ -33,7 +33,6 @@ const socket = require("./server-socket");
 
 // Server configuration below
 // TODO change connection URL after setting up your team database
-const mongoConnectionURL = require("./mongoURL");
 // TODO change database name to the name you chose
 const databaseName = "adt-portal";
 
