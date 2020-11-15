@@ -16,7 +16,7 @@ class Nav extends Component {
       <>
         <div className='Nav-container'>
             <div className='Nav-logo'> </div>
-            <div className='Nav-title'> PORTAL </div>
+            <div className='Nav-title'> SNACC PORTAL </div>
         </div>
       </>
     );

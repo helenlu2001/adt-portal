@@ -48,16 +48,23 @@ router.get("/userID", (req, res) => {
 })
 
 router.get("/comment", (req, res) => {
-  Comment.find({video: req.query.video})
+  Comment.find({video: req.query.video, kerb: req.query.kerb})
     .then( (comments) => {
       res.send(comments);
     });
+})
+
+router.post("/removeComment", (req, res) => {
+  Comment.deleteOne({video: req.body.video, kerb: req.body.kerb, comment: req.body.comment}).then((comment) => {console.log(comment)});
+  console.log('should remove');
+
 })
 
 router.post("/comment", (req, res) => {
   console.log(req.body.author);
   const newComment = new Comment({
     author: req.body.author,
+    kerb: req.body.kerb,
     video: req.body.video,
     comment: req.body.comment,
     time: req.body.time

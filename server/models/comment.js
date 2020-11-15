@@ -4,6 +4,7 @@ const CommentSchema = new mongoose.Schema({
   author: String, // links to the id of the user that wrote this comment
   video: String, // links to the id of the video that this comment is written for 
   comment: String,
+  kerb: String,
   time: Number
 });
 

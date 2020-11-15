@@ -7,6 +7,7 @@ class Notes extends Component {
   constructor(props) {
     super(props);
     this.goToVideo = this.goToVideo.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   componentDidMount() {
@@ -20,6 +21,11 @@ class Notes extends Component {
     window['player-reference'].playVideo();
   }
 
+  remove(e) {
+    console.log("hello");
+    this.props.removeComment(this.props.index);
+  }
+
   render() {
 
     return (
@@ -27,6 +33,9 @@ class Notes extends Component {
         <div className='Comments-container' onClick={this.goToVideo}>
           <div className='Comments-time'> {Math.floor(this.props.refTime / 60)}m {Math.round(this.props.refTime % 60)}s </div>
           <div className='Comments-comment'> {this.props.comment} </div>
+          <div className='Comments-showRemove'>
+            <div className='Comments-remove' onClick={this.remove}> x </div>
+          </div>
         </div>
       </>
     );

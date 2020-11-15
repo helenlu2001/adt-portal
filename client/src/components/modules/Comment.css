@@ -3,6 +3,7 @@
 }
 
 .Comments-container {
+    position: relative;
     display: flex;
     padding: 4px;
 }
@@ -24,4 +25,27 @@
     font-size: 20px;
 
     word-wrap: break-word;
+}
+
+.Comments-remove {
+    display: none;
+    z-index: 10;
+
+}
+
+.Comments-showRemove:hover .Comments-remove {
+    display: block;
+    z-index: 10;
+
+}
+
+.Comments-showRemove {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    text-align: right;
+    font-size: 24px;
+    right: 8px;
+    z-index: 10;
+
 }

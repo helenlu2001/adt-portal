@@ -27,9 +27,16 @@ class Youtube extends React.Component {
   };
 
   loadVideo() {
-    window['player-' + this.props.type] = new window.YT.Player('player-' + this.props.type, {
+    window['player-' + this.props.type] = new window.YT.Player('player-reference-' + this.props.kerb, {
       width: '500',
-      videoId: this.props.videoId,
+      videoId: this.props.refId,
+      events: {
+        onReady: this.onPlayerReady,
+      },
+    });
+    window['player-' + this.props.type] = new window.YT.Player('player-dancer-' + this.props.kerb, {
+      width: '500',
+      videoId: this.props.vidId,
       events: {
         onReady: this.onPlayerReady,
       },
@@ -42,8 +49,10 @@ class Youtube extends React.Component {
 
   render = () => {
     return (
-        <div id={'player-' + this.props.type} />
-
+      <>
+        <div id={'player-reference-' + this.props.kerb} />
+        <div id={'player-dancer-' + this.props.kerb} />
+      </>
     );
   };
 }
