@@ -2,3 +2,5 @@ client/dist/bundle.js
 node_modules/
 server/mongoURL.js
 .env
+server/form-handler/cred.json
+server/form-handler/token.pickle

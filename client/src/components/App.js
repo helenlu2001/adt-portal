@@ -4,6 +4,8 @@ import NotFound from "./pages/NotFound.js";
 import Notes from "./pages/Notes.js";
 import Nav from "../components/modules/Nav";
 import Login from "./pages/Login.js";
+import Choreog from "./pages/Choreog.js";
+
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
@@ -21,11 +23,12 @@ class App extends Component {
       userId: undefined,
       kerb: 'helen_lu',
       dance: "god's menu",
-      dancer: 'helu',
+      choreogs: ['yinj', 'helen_lu'],
       kerbs: ['ayue', 'andreayl', 'annlin', 'bensonc', 'mcarolyn', 'ccheng00', 'defiesta', 'emilyhan', 'jcheong', 'jeyoon',
               'jlmeng', 'jpark00', 'kxiong22', 'syoro', 'boomzaza', 'lucyrlee', 'yinm', 'sarahwei', 'saracola', 'sophiejg', 
               'vchau', 'vikt'],
-      code: 'snacctime'
+      code: 'snacctime',
+      choreogCode: 'snaccybois'
     };
 
     this.login = this.login.bind(this);
@@ -36,7 +39,9 @@ class App extends Component {
   }
 
   login(k, c) {
-    if(this.state.kerbs.includes(k) && c === this.state.code) {
+    if(this.state.choreogs.includes(k) && c == this.state.choreogCode) {
+      navigate("/choreog/" + k);
+    } else if(this.state.kerbs.includes(k) && c === this.state.code) {
       navigate("/godsmenu/" + k);
     }
     
@@ -50,6 +55,9 @@ class App extends Component {
           <Login 
             path="/"
             login={this.login}
+          />
+          <Choreog
+            path="/choreog/:choreog"
           />
           <Notes
             path="/godsmenu/:dancer"
