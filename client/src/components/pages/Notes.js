@@ -13,7 +13,8 @@ class Notes extends Component {
     this.state = {
       diff: 0,
       comments: [],
-      kerb: ''
+      kerb: '',
+      video_id: ''
     };
 
     this.submitComment = this.submitComment.bind(this);
@@ -24,7 +25,9 @@ class Notes extends Component {
   componentDidMount() {
     let kerb = this.props.location.pathname.split("/")[2];
     this.setState({kerb: kerb});
-    get("/api/comment", {video: 'TQTlCHxyuu8', kerb:kerb}).then((res) => {
+    // get("/api/video", {kerb: kerb}).then((res) => this.setState({video_id: res.video_id}));
+
+    get("/api/comment", {video: this.state.video_id, kerb:kerb}).then((res) => {
       let comments = res.map((c) => {
         return {
           comment: c.comment,
@@ -46,8 +49,7 @@ class Notes extends Component {
     comments.sort((c1, c2) => (c1['refTime'] > c2['refTime']) ? 1 : -1);
     this.setState({comments: comments});
     post("/api/comment", {
-      author: this.props.userId, 
-      video: 'TQTlCHxyuu8', 
+      video: this.state.video_id, 
       comment:comment, 
       kerb: this.state.kerb,
       time: time })
@@ -78,11 +80,12 @@ class Notes extends Component {
       comments.push(<Comment comment={comment['comment']} refTime={comment['refTime']} diff={this.state.diff} index={i} removeComment={this.removeComment}/>);
     }
 
+    console.log(this.state.video_id);
     return (
       <>  
         <div className='Notes-container'> 
           <div className='Notes-videoContainer'>
-            <Youtube type={'reference'} refId={'nkeh7Bx3GzY'} vidId={'9zSrFPTwTN0'} kerb={this.state.kerb}/>
+            <Youtube type={'reference'} refId={'nkeh7Bx3GzY'} vidId={this.state.video_id} kerb={this.props.location.pathname.split("/")[2]}/>
             {/* <Youtube type={'dancer'} videoId={'9zSrFPTwTN0'}/> */}
           </div>
           <div className='Notes-settings'>

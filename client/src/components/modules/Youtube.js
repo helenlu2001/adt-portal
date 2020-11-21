@@ -1,4 +1,5 @@
 import React from 'react';
+import { get, post } from "../../utilities";
 
 // starter code for YT player is from: 
 // https://stackoverflow.com/questions/54017100/how-to-integrate-youtube-iframe-api-in-reactjs-solution
@@ -20,6 +21,7 @@ class Youtube extends React.Component {
 
       const firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      console.log("no yt in window");
 
     } else { // If script is already there, load the video directly
       this.loadVideo();
@@ -27,20 +29,25 @@ class Youtube extends React.Component {
   };
 
   loadVideo() {
-    window['player-' + this.props.type] = new window.YT.Player('player-reference-' + this.props.kerb, {
-      width: '500',
-      videoId: this.props.refId,
-      events: {
-        onReady: this.onPlayerReady,
-      },
+    console.log(this.props.kerb);
+    get("/api/video", {kerb: this.props.kerb}).then((res) => {
+      console.log(res);
+      window['player-' + this.props.type] = new window.YT.Player('player-reference-' + this.props.kerb, {
+        width: '500',
+        videoId: this.props.refId,
+        events: {
+          onReady: this.onPlayerReady,
+        },
+      });
+      window['player-' + this.props.type] = new window.YT.Player('player-dancer-' + this.props.kerb, {
+        width: '500',
+        videoId: res.video_id,
+        events: {
+          onReady: this.onPlayerReady,
+        },
+      });
     });
-    window['player-' + this.props.type] = new window.YT.Player('player-dancer-' + this.props.kerb, {
-      width: '500',
-      videoId: this.props.vidId,
-      events: {
-        onReady: this.onPlayerReady,
-      },
-    });
+
   };
 
   onPlayerReady = event => {

@@ -22,15 +22,13 @@ class App extends Component {
     this.state = {
       userId: undefined,
       kerb: 'helen_lu',
+      video_id: '',
       dance: "god's menu",
       choreogs: ['yinj', 'helen_lu'],
-      kerbs: ['ayue', 'andreayl', 'annlin', 'bensonc', 'mcarolyn', 'ccheng00', 'defiesta', 'emilyhan', 'jcheong', 'jeyoon',
-              'jlmeng', 'jpark00', 'kxiong22', 'syoro', 'boomzaza', 'lucyrlee', 'yinm', 'sarahwei', 'saracola', 'sophiejg', 
-              'vchau', 'vikt'],
+      kerbs: [],
       code: 'snacctime',
       choreogCode: 'snaccybois'
     };
-
     this.login = this.login.bind(this);
   }
 
@@ -42,10 +40,11 @@ class App extends Component {
     if(this.state.choreogs.includes(k) && c == this.state.choreogCode) {
       navigate("/choreog/" + k);
     } else if(this.state.kerbs.includes(k) && c === this.state.code) {
+      get("/api/video", {kerb: k}).then((res) => this.setState({video_id: res.video_id}));
       navigate("/godsmenu/" + k);
     }
     
-  }
+      }
 
   render() {
     return (
@@ -61,7 +60,7 @@ class App extends Component {
           />
           <Notes
             path="/godsmenu/:dancer"
-            userId={this.state.userId}
+            videoId={this.state.video_id}
           />
           <NotFound default />
         </Router>

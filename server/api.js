@@ -47,6 +47,13 @@ router.get("/users", (req, res) => {
   });
 })
 
+router.get("/video", (req, res) => {
+  User.findOne({kerb: req.query.kerb}).then((user) => {
+    res.send(user);
+  });
+})
+
+
 router.get("/comment", (req, res) => {
   Comment.find({video: req.query.video, kerb: req.query.kerb})
     .then( (comments) => {
