@@ -41,9 +41,9 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
-router.get("/userID", (req, res) => {
-  User.findOne({kerb: req.query.kerb}).then((user) => {
-    res.send(user._id);
+router.get("/users", (req, res) => {
+  User.find({}).then((users) => {
+    res.send(users.map((elem) => elem.kerb));
   });
 })
 

@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    get("/api/userID", {kerb: this.state.kerb}).then((id) => this.setState({userId: id}));
+    get("/api/users").then((res) => this.setState({kerbs: res}));
   }
 
   login(k, c) {
