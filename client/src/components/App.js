@@ -21,7 +21,7 @@ class App extends Component {
     super(props);
     this.state = {
       userId: undefined,
-      kerb: 'helen_lu',
+      kerb: '',
       video_id: '',
       dance: "god's menu",
       choreogs: ['yinj', 'helen_lu'],
@@ -42,9 +42,10 @@ class App extends Component {
     } else if(this.state.kerbs.includes(k) && c === this.state.code) {
       get("/api/video", {kerb: k}).then((res) => this.setState({video_id: res.video_id}));
       navigate("/godsmenu/" + k);
+      this.setState({kerb: k});
     }
     
-      }
+  }
 
   render() {
     return (
@@ -61,6 +62,7 @@ class App extends Component {
           <Notes
             path="/godsmenu/:dancer"
             videoId={this.state.video_id}
+            kerb={this.state.kerb}
           />
           <NotFound default />
         </Router>

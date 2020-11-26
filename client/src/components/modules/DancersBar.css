@@ -1,0 +1,42 @@
+.DancersBar-container {
+  margin-top: 0px;
+  overflow-y: scroll;  
+  overflow-x: hidden;
+  width: 300px;
+  border-right: solid black 1px;
+  padding: 0;
+}
+
+.DancersBar-dancer {
+  height: 16px;
+  border-bottom: solid 1px black;
+  padding: 16px;
+}
+
+.DancersBar-dancer:last-child {
+  border: none;
+}
+
+.DancersBar-dancer:hover {
+  background: var(--med-grey);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

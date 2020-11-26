@@ -47,9 +47,21 @@ router.get("/users", (req, res) => {
   });
 })
 
+router.get("/dancers", (req, res) => {
+  User.find({"dances": "God's Menu"}).then((users) => {
+    res.send(users);
+  });
+})
+
 router.get("/video", (req, res) => {
-  User.findOne({kerb: req.query.kerb}).then((user) => {
+  Video.findOne({kerb: req.query.kerb}).then((user) => {
     res.send(user);
+  });
+})
+
+router.post("/synch", (req, res) => {
+  Video.findOneAndUpdate({kerb: req.body.kerb}, {synch: req.body.synch}).then((vid) => {
+    console.log(vid);
   });
 })
 
@@ -62,6 +74,9 @@ router.get("/comment", (req, res) => {
 })
 
 router.post("/removeComment", (req, res) => {
+  console.log(req.body.video);
+  console.log(req.body.kerb);
+  console.log(req.body.comment);
   Comment.deleteOne({video: req.body.video, kerb: req.body.kerb, comment: req.body.comment}).then((comment) => {console.log(comment)});
   console.log('should remove');
 

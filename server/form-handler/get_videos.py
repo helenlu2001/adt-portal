@@ -17,6 +17,8 @@ RANGE_NAME = 'A2:G100'
 
 db = mongo_client["adt-portal"]
 user_col = db["users"]
+vid_col = db["videos"]
+
 
 def main():
     """Shows basic usage of the Sheets API.
@@ -52,8 +54,20 @@ def main():
         for row in values:
             if(len(row) < 6):
                 continue
-            
-            user_col.insert_one({ "kerb": row[4], "first_name": row[1], "last_name": row[2], "year": row[4], "video_id": row[5][row[5].index('v=')+2:] })
+
+            vid_col.insert_one({
+                "kerb": row[4],
+                "video_id": row[5].split('/')[-1],
+                "synch": 0,
+            })
+
+            user_col.insert_one({ 
+                "kerb": row[4], 
+                "first_name": row[1], 
+                "last_name": row[2], 
+                "year": row[3], 
+                "dances": ["God's Menu"]
+             })
 
             # print('%s, %s, %s, %s, %s' % (row[1], row[2], row[3], row[4], row[5][row[5].index('v=')+2:] ))
 

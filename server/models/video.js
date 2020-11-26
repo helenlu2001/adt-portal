@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const VideoSchema = new mongoose.Schema({
-  dance: String,
-  dancer: String, // array of userId's who are part of this dance
-  videoId: String // string for youtube id
+  kerb: String, // array of userId's who are part of this dance
+  videoId: String, // string for youtube id
+  synch: Number
 });
 
 // compile model from schema

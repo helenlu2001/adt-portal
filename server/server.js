@@ -46,6 +46,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
 
+// console.log(mongoose.connections[0].collections)
 // create a new express server
 const app = express();
 app.use(validator.checkRoutes);
