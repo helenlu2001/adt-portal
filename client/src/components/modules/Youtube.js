@@ -83,7 +83,6 @@ class Youtube extends React.Component {
       window['player-dancer'].loadVideoById(this.props.vidId);
       this.setState({vidId: this.props.vidId});
     }
-    console.log(this.props.vidId)
     return (
       <>
         <div id={'player-reference'} />

@@ -61,8 +61,8 @@ class App extends Component {
           />
           <Notes
             path="/godsmenu/:dancer"
-            videoId={this.state.video_id}
             kerb={this.state.kerb}
+            choreog={false}
           />
           <NotFound default />
         </Router>

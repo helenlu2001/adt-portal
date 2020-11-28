@@ -23,22 +23,30 @@ class Notes extends Component {
   }
 
   componentDidMount() {
-    let kerb = this.props.kerb;
+    let kerb;
+    if(this.props.choreog) {
+      kerb = this.props.kerb;
+    } else {
+      kerb = this.props.location.pathname.split("/")
+      kerb = kerb[kerb.length -1];
+      
+    }
     this.setState({kerb: kerb});
-    get("/api/video", {kerb: kerb}).then((res) => this.setState({
-      video_id: res.video_id,
-      diff: res.synch
-    }));
-    
-    get("/api/comment", {video: this.state.video_id, kerb:kerb}).then((res) => {
-      let comments = res.map((c) => {
-        return {
-          comment: c.comment,
-          refTime: c.time
-        };
-      })
-      comments.sort((c1, c2) => (c1['refTime'] > c2['refTime']) ? 1 : -1);
-      this.setState({comments: comments});
+    get("/api/video", {kerb: kerb}).then((res) => {
+      this.setState({
+        video_id: res.video_id,
+        diff: res.synch
+      });
+      get("/api/comment", {video: this.state.video_id, kerb:kerb}).then((res) => {
+        let comments = res.map((c) => {
+          return {
+            comment: c.comment,
+            refTime: c.time
+          };
+        })
+        comments.sort((c1, c2) => (c1['refTime'] > c2['refTime']) ? 1 : -1);
+        this.setState({comments: comments});
+      });
     });
   }
 
@@ -56,7 +64,7 @@ class Notes extends Component {
       comment:comment, 
       kerb: this.state.kerb,
       time: time })
-      .then(comment => console.log(comment));
+      .then(comment => console.log("we have submitted the comment" + comment));
   }
 
   removeComment(index) {
@@ -73,7 +81,9 @@ class Notes extends Component {
   }
 
   synch() {
+    console.log("hello");
     let diff = window['player-reference'].getCurrentTime()-window['player-dancer'].getCurrentTime();
+    console.log(diff);
     this.setState({diff: diff})
     post("/api/synch", {
       synch: diff, 
@@ -83,13 +93,28 @@ class Notes extends Component {
   }
 
   render() {
-    get("/api/video", {kerb: this.props.kerb}).then((res) => {
-      this.setState({
-        video_id: res.video_id,
-        diff: res.synch
-      });
+    if(this.props.kerb != this.state.kerb) {
+      console.log(this.props.kerb);
+      console.log(this.state.kerb);
+      get("/api/video", {kerb: this.props.kerb}).then((res) => {
+        this.setState({
+          kerb: this.props.kerb,
+          video_id: res.video_id,
+          diff: res.synch
+        });
+        get("/api/comment", {video: this.state.video_id, kerb:this.props.kerb}).then((res) => {
+          let comments = res.map((c) => {
+            return {
+              comment: c.comment,
+              refTime: c.time
+            };
+          })
+          comments.sort((c1, c2) => (c1['refTime'] > c2['refTime']) ? 1 : -1);
+          this.setState({comments: comments});
+        });
+      }
+      );  
     }
-    );
 
     let comments = [];
     for(let i = 0; i < this.state.comments.length; i+= 1) {
@@ -102,11 +127,11 @@ class Notes extends Component {
       <>  
         <div className='Notes-container'> 
           <div className='Notes-videoContainer'>
-            {this.props.kerb != undefined && <Youtube type={'reference'} refId={'nkeh7Bx3GzY'} vidId={this.state.video_id} kerb={this.props.kerb} diff={this.state.diff}/>}
+            {this.state.video_id != undefined && <Youtube type={'reference'} refId={'nkeh7Bx3GzY'} vidId={this.state.video_id} kerb={this.state.kerb} diff={this.state.diff}/>}
             {/* <Youtube type={'dancer'} videoId={'9zSrFPTwTN0'}/> */}
           </div>
           <div className='Notes-settings'>
-            <Input submitComment={this.submitComment}/>
+            {this.props.choreog && <Input submitComment={this.submitComment}/>} 
             <div> drag both the reference and dancer video to the same parts in the music and press sync! </div>
             <div className='Notes-button' onClick={this.synch}> SYNCH </div>
           </div>

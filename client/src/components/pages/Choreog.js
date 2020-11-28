@@ -30,7 +30,7 @@ class Choreog extends Component {
   create(kerbs) {
     let notes = [];
     for(let i = 0; i < kerbs.length; i++) {
-      notes.push(<Notes kerb={kerbs[i]}/>)
+      notes.push(<Notes kerb={kerbs[i]} choreog={true}/>)
     }
     this.setState({notes: notes});
   }
