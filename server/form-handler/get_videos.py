@@ -55,19 +55,20 @@ def main():
             if(len(row) < 6):
                 continue
 
-            vid_col.insert_one({
-                "kerb": row[4],
-                "video_id": row[5].split('/')[-1],
-                "synch": 0,
-            })
+            if(user_col.find_one({"kerb": row[4]}) == None):
+                vid_col.insert_one({
+                    "kerb": row[4],
+                    "video_id": row[5].split('/')[-1],
+                    "synch": 0,
+                })
 
-            user_col.insert_one({ 
-                "kerb": row[4], 
-                "first_name": row[1], 
-                "last_name": row[2], 
-                "year": row[3], 
-                "dances": ["God's Menu"]
-             })
+                user_col.insert_one({ 
+                    "kerb": row[4], 
+                    "first_name": row[1], 
+                    "last_name": row[2], 
+                    "year": row[3], 
+                    "dances": ["God's Menu"]
+                })
 
             # print('%s, %s, %s, %s, %s' % (row[1], row[2], row[3], row[4], row[5][row[5].index('v=')+2:] ))
 

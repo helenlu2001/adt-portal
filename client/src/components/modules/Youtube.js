@@ -19,7 +19,6 @@ class Youtube extends React.Component {
 
 
   componentDidMount() {
-    console.log(this.props.vidId)
     if (!window.YT) { 
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';

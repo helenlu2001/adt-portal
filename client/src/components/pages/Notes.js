@@ -81,9 +81,7 @@ class Notes extends Component {
   }
 
   synch() {
-    console.log("hello");
     let diff = window['player-reference'].getCurrentTime()-window['player-dancer'].getCurrentTime();
-    console.log(diff);
     this.setState({diff: diff})
     post("/api/synch", {
       synch: diff, 
@@ -94,8 +92,6 @@ class Notes extends Component {
 
   render() {
     if(this.props.kerb != this.state.kerb) {
-      console.log(this.props.kerb);
-      console.log(this.state.kerb);
       get("/api/video", {kerb: this.props.kerb}).then((res) => {
         this.setState({
           kerb: this.props.kerb,
@@ -119,7 +115,7 @@ class Notes extends Component {
     let comments = [];
     for(let i = 0; i < this.state.comments.length; i+= 1) {
       let comment = this.state.comments[i];
-      comments.push(<Comment comment={comment['comment']} refTime={comment['refTime']} diff={this.state.diff} index={i} removeComment={this.removeComment}/>);
+      comments.push(<Comment comment={comment['comment']} refTime={comment['refTime']} diff={this.state.diff} index={i} removeComment={this.removeComment} choreog={this.props.choreog}/>);
     }
 
 

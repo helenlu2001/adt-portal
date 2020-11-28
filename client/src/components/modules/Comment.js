@@ -22,7 +22,6 @@ class Notes extends Component {
   }
 
   remove(e) {
-    console.log("hello");
     this.props.removeComment(this.props.index);
   }
 
@@ -34,7 +33,7 @@ class Notes extends Component {
           <div className='Comments-time'> {Math.floor(this.props.refTime / 60)}m {Math.round(this.props.refTime % 60)}s </div>
           <div className='Comments-comment'> {this.props.comment} </div>
           <div className='Comments-showRemove'>
-            <div className='Comments-remove' onClick={this.remove}> x </div>
+            {this.props.choreog && <div className='Comments-remove' onClick={this.remove}> x </div>}
           </div>
         </div>
       </>
